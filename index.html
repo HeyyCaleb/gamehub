@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Hub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+        }
+        header {
+            background: #1e293b;
+            padding: 15px;
+            text-align: center;
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .games {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .game {
+            background: #1e293b;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
+<header>
+    <h1>🎮 Game Hub</h1>
+    <input id="search" placeholder="Search games..." onkeyup="searchGames()">
+</header>
+
+<div class="games" id="games"></div>
+
+<iframe id="player"></iframe>
+
+<script>
+const games = [
+    { name: "2048", url: "https://play2048.co/" },
+    { name: "Snake", url: "https://playsnake.org/" },
+    { name: "Tetris", url: "https://tetris.com/play-tetris" },
+    { name: "Pacman", url: "https://www.google.com/logos/2010/pacman10-i.html" }
+];
+
+function displayGames(list) {
+    const container = document.getElementById("games");
+    container.innerHTML = "";
+    list.forEach(game => {
+        container.innerHTML += `
+            <div class="game">
+                <h3>${game.name}</h3>
+                <button onclick="playGame('${game.url}')">Play</button>
+            </div>
+        `;
+    });
+}
+
+function searchGames() {
+    const value = document.getElementById("search").value.toLowerCase();
+    const filtered = games.filter(g => g.name.toLowerCase().includes(value));
+    displayGames(filtered);
+}
+
+function playGame(url) {
+    document.getElementById("player").src = url;
+}
+
+displayGames(games);
+</script>
+
+</body>
+</html>
